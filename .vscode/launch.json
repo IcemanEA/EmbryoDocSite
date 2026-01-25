@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:EmbryoDocSite}",
+            "name": "Debug IgniteStarter",
+            "target": "IgniteStarter",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug IgniteStarter"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:EmbryoDocSite}",
+            "name": "Release IgniteStarter",
+            "target": "IgniteStarter",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release IgniteStarter"
+        }
+    ]
+}
