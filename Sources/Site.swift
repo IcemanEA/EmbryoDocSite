@@ -1,27 +1,35 @@
 import Foundation
 import Ignite
 
-@main
-struct IgniteWebsite {
-    static func main() async {
-        var site = ExampleSite()
-
-        do {
-            try await site.publish()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
+enum Config {
+	enum Path {
+		static let buildOutput = "/Users/ledkov/Documents/Work/Embryodoc/site"
+	}
 }
 
-struct ExampleSite: Site {    
-    var name = "Hello World"
-    var titleSuffix = " – My Awesome Site"
-    var url = URL(static: "https://www.example.com")
-    var builtInIconsEnabled = true
+@main
+struct IgniteWebsite {
+	static func main() async {
+		var site = EmbryoDocSite()
 
-    var author = "John Appleseed"
+		do {
+			let sourceDirectory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+			let buildDirectory = URL(fileURLWithPath: Config.Path.buildOutput)
+			try await site.publish(sourceDirectory: sourceDirectory, buildDirectory: buildDirectory)
+		} catch {
+			print(error.localizedDescription)
+		}
+	}
+}
 
-    var homePage = Home()
-    var layout = MainLayout()
+struct EmbryoDocSite: Site {
+	var name = "EmbryoDoc App"
+	var titleSuffix = " – Приложение для эмбриологов и репродуктологов"
+	var url = URL(static: "https://embryodoc.app")
+	var builtInIconsEnabled = true
+	
+	var author = "Egor Ledkov"
+	
+	var homePage = Home()
+	var layout = MainLayout()
 }
