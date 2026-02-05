@@ -12,26 +12,21 @@ The project uses the [Ignite framework](https://github.com/twostraws/Ignite) to 
 
 ### Building the Site
 ```bash
-# Build the site (generates HTML in Build/ directory)
+# Build the site (generates HTML in docs/ directory)
 swift run
-
-# Or use the Ignite CLI tool (faster)
-ignite build
 ```
 
 ### Development & Preview
 ```bash
-# Run local web server and preview in browser (RECOMMENDED)
-ignite run --preview
+# Build and preview the site
+swift run
+ignite run --directory docs --preview
 
 # Run local web server only (without opening browser)
-ignite run
-
-# With custom build directory
-ignite run --directory /Users/ledkov/Documents/Work/Embryodoc/site --preview
+ignite run --directory docs
 
 # Specify custom port
-ignite run --port 8080 --preview
+ignite run --directory docs --port 8080 --preview
 ```
 
 ### Swift Package Management
@@ -70,21 +65,21 @@ swift package clean
 2. **Content/** - Markdown files for blog posts/articles
    - Auto-generated pages from markdown
    - Supports YAML front matter
-   - Path structure: `Content/blog/post.md` → `Build/blog/index.html`
+   - Path structure: `Content/blog/post.md` → `docs/blog/index.html`
    - Requires at least one `ArticlePage` layout
 
 3. **Assets/** - Static resources
    - `Assets/images/` - Images
    - Custom CSS, JS, fonts
-   - Copied to `Build/` during generation
+   - Copied to `docs/` during generation
 
 4. **Includes/** - Reusable HTML snippets
    - Small HTML fragments
    - Can be included in pages
 
-5. **Build/** - Generated output (NEVER EDIT)
+5. **docs/** - Generated output for GitHub Pages (NEVER EDIT)
    - Automatically regenerated on each build
-   - Deploy this folder to your web host
+   - Configured for GitHub Pages deployment
 
 ## Site Configuration
 
@@ -110,26 +105,18 @@ struct MySite: Site {
 }
 ```
 
-### Custom Build Output Path
+### Build Output (GitHub Pages)
 
-To build the site to a custom directory (e.g., another repository), use the `publish(sourceDirectory:buildDirectory:)` method with absolute URL paths:
+This project builds to the `docs/` folder for GitHub Pages deployment:
 
 ```swift
-enum Config {
-    enum Path {
-        static let buildOutput = "/Users/ledkov/Documents/Work/Embryodoc/site"
-    }
-}
-
 @main
 struct IgniteWebsite {
     static func main() async {
         var site = EmbryoDocSite()
 
         do {
-            let sourceDirectory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-            let buildDirectory = URL(fileURLWithPath: Config.Path.buildOutput)
-            try await site.publish(sourceDirectory: sourceDirectory, buildDirectory: buildDirectory)
+            try await site.publish(buildDirectoryPath: "docs")
         } catch {
             print(error.localizedDescription)
         }
@@ -137,38 +124,9 @@ struct IgniteWebsite {
 }
 ```
 
-**Alternative: Relative Path**
-For relative paths, use:
-```swift
-try await site.publish(buildDirectoryPath: "../another-repo/docs")
-```
-Note: `buildDirectoryPath` is appended to the source directory, so use relative paths only.
-
-Examples of paths:
-- **Absolute path**: `/Users/username/Documents/my-site-repo/docs`
-- **Relative path**: `../another-repo/public`
-- **Default**: `Build` (in current directory)
-
-This is useful when you want to:
-- Build directly into a GitHub Pages repository
-- Generate output in a separate deployment folder
-- Keep source and built files in different repos
-
-**Important: Preview with Custom Directory**
-
-When using a custom build path, use the `--directory` parameter with `ignite run`:
-
+After building, preview with:
 ```bash
-# Build to custom directory
-swift run
-
-# Preview from custom directory
-ignite run --directory /Users/ledkov/Documents/Work/Embryodoc/site --preview
-```
-
-Or use `Config.Path.buildOutput`:
-```bash
-ignite run --directory /Users/ledkov/Documents/Work/Embryodoc/site --preview
+ignite run --directory docs --preview
 ```
 
 ## Page Types
@@ -516,21 +474,19 @@ Content/
     2026-01-26-post.md
 ```
 
-## Deployment
+## Deployment (GitHub Pages)
 
-1. Build the site: `ignite build`
-2. The `Build/` directory contains your complete static site
-3. Deploy `Build/` to any static host:
-   - GitHub Pages
-   - Netlify
-   - Vercel
-   - AWS S3
-   - Your own web server
+1. Build the site: `swift run`
+2. Commit and push the `docs/` folder to GitHub
+3. In GitHub repo Settings → Pages:
+   - Source: "Deploy from a branch"
+   - Branch: `master` (or `main`), folder: `/docs`
+   - Save
 
 ## Important Notes
 
-1. **Never edit Build/ directly** - It's regenerated on every build
-2. **Preview properly** - Always use `ignite run --preview` instead of opening HTML files directly in Finder (they need a web server to load resources correctly)
+1. **Never edit docs/ directly** - It's regenerated on every build
+2. **Preview properly** - Always use `ignite run --directory docs --preview` instead of opening HTML files directly in Finder (they need a web server to load resources correctly)
 3. **Swift 5.9+** - Project requires Swift 5.9 or later and macOS 13+
 4. **Dependencies** - Main dependency is Ignite framework from GitHub (main branch)
 5. **Russian content** - This site is in Russian (Приложение для эмбриологов и репродуктологов)

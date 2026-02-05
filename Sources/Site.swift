@@ -1,21 +1,15 @@
 import Foundation
 import Ignite
 
-enum Config {
-	enum Path {
-		static let buildOutput = "/Users/ledkov/Documents/Work/Embryodoc/site"
-	}
-}
-
 @main
 struct IgniteWebsite {
 	static func main() async {
 		var site = EmbryoDocSite()
 
 		do {
-			let sourceDirectory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-			let buildDirectory = URL(fileURLWithPath: Config.Path.buildOutput)
-			try await site.publish(sourceDirectory: sourceDirectory, buildDirectory: buildDirectory)
+			try await site.publish(buildDirectoryPath: "docs")
+			print("✅ Build completed: docs/")
+			print("💡 Preview: ignite run --directory docs --preview")
 		} catch {
 			print(error.localizedDescription)
 		}
