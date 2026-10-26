@@ -491,6 +491,18 @@ Content/
 4. **Dependencies** - Main dependency is Ignite framework from GitHub (main branch)
 5. **Russian content** - This site is in Russian (Приложение для эмбриологов и репродуктологов)
 6. **Build warnings** - If using markdown content, you MUST provide at least one `ArticlePage` layout
+7. **Files that must live in Assets/** - The build wipes `docs/`, so anything GitHub Pages needs (`CNAME`, images, fonts) goes in `Assets/` and is copied on every build. Never drop files into `docs/` by hand.
+
+## Design System
+
+The site uses Egor's personal Ledkov.org design system (source: `~/Documents/Work/Designs/ledkov/DS`), not Bootstrap.
+
+- Bootstrap, Bootstrap Icons and Ignite themes are switched off in `Sources/Site.swift`. Most Ignite modifiers (`.font()`, `.role()`, `.linkStyle(.button)`, `.padding()`) emit Bootstrap classes and have no effect here.
+- All styling lives in `Assets/css/embryodoc.css`: design tokens as CSS custom properties, then component classes. Dark theme = `data-theme="dark"` on `<html>` (set by `Assets/js/embryodoc.js`) or on any container.
+- Markup is built from `Tag("…")` plus `.class("…")`, `.attribute()`, `.aria()`, `.data()`. Reusable pieces are in `Sources/Components/`. A `String` inside `Tag` is emitted raw, so escape `<` and `&` in copy.
+- The logo is inline SVG in `Includes/embryodoc-logo.svg`; its fills use `--logo-ink`, `--accent` and `--logo-hole` so it follows the theme.
+- Rules from the design system: no emoji, no gradients, one orange call to action per screen, headings in Penta (≥ 20 px), body in Commissioner, numbered sections («01», «02»…).
+- The editable design mock lives on a Claude Design canvas: https://claude.ai/artifact/7fM9bXLbbZ8enQYiMhWr9c. Check it for Egor's edits before changing the layout.
 
 ## Resources
 

@@ -3,37 +3,22 @@ import Ignite
 
 struct MainLayout: Layout {
 	var body: some Document {
-		Body {
-			// Navigation Bar
-			Section {
-				Section {
-					Link("EmbryoDoc", target: "#home")
-						.font(.title3)
-
-					Section {
-						Link("Эмбриологам", target: "#embryologists")
-							.margin(.horizontal, 15)
-
-						Link("Репродуктологам", target: "#doctors")
-							.margin(.horizontal, 15)
-
-						Link("Администраторам", target: "#administrators")
-							.margin(.horizontal, 15)
-
-						Link("Клиентам", target: "#clients")
-							.margin(.horizontal, 15)
-
-						Link("Контакты", target: "#contact")
-							.margin(.horizontal, 15)
-					}
-				}
-			}
-			.padding(.vertical, 20)
-			.padding(.horizontal, 40)
-
-			content
-
-			IgniteFooter()
+		Head {
+			MetaLink(href: "https://fonts.googleapis.com", rel: "preconnect")
+			MetaLink(href: "https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600&display=swap", rel: .stylesheet)
+			MetaLink(href: "/css/embryodoc.css", rel: .stylesheet)
+			// Loaded in <head> so the saved theme applies before the first paint.
+			Script(file: "/js/embryodoc.js")
 		}
+
+		Body {
+			SiteHeader()
+			Tag("main") {
+				content
+			}
+			.id("top")
+			SiteFooter()
+		}
+		.ignorePageGutters()
 	}
 }

@@ -1,248 +1,390 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="EmbryoDoc — электронный документооборот для центров ВРТ: эмбриология, крио, циклы ВРТ, ЕГИСЗ и отчётность в одной системе." />
     <meta name="author" content="Egor Ledkov" />
     <meta name="generator" content="Ignite v0.6.0" />
     <title>Главная – Приложение для эмбриологов и репродуктологов</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/css/bootstrap-icons.min.css" rel="stylesheet" />
     <link href="/css/ignite-core.min.css" rel="stylesheet" />
     <link href="https://embryodoc.app/" rel="canonical" />
-    <script>(function() {
-    function getThemePreference() {
-        return localStorage.getItem('custom-theme') || 'auto';
-    }
-
-    function applyTheme(themeID) {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const lightThemeID = document.documentElement.getAttribute('data-light-theme') || 'light';
-        const darkThemeID = document.documentElement.getAttribute('data-dark-theme') || 'dark';
-        const actualThemeID = themeID === 'auto' ? (prefersDark ? darkThemeID : lightThemeID) : themeID;
-
-        document.documentElement.setAttribute('data-bs-theme', actualThemeID);
-        document.documentElement.setAttribute('data-theme-state', themeID);
-    }
-
-    function applySyntaxTheme() {
-        const syntaxTheme = getComputedStyle(document.documentElement)
-            .getPropertyValue('--syntax-highlight-theme').trim().replace(/"/g, '');
-
-        if (!syntaxTheme) return;
-
-        document.querySelectorAll('link[data-highlight-theme]').forEach(link => {
-            link.setAttribute('disabled', 'disabled');
-        });
-
-        const themeLink = document.querySelector(`link[data-highlight-theme="${syntaxTheme}"]`);
-        if (themeLink) {
-            themeLink.removeAttribute('disabled');
-        }
-    }
-
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-        const currentTheme = getThemePreference();
-        if (currentTheme === 'auto') {
-            applyTheme('auto');
-            applySyntaxTheme();
-        }
-    });
-
-    const savedTheme = getThemePreference();
-    applyTheme(savedTheme);
-    applySyntaxTheme();
-})();
-</script>
     <meta property="og:site_name" content="EmbryoDoc App" />
     <meta property="og:title" content="Главная" />
     <meta name="twitter:title" content="Главная" />
+    <meta property="og:description" content="EmbryoDoc — электронный документооборот для центров ВРТ: эмбриология, крио, циклы ВРТ, ЕГИСЗ и отчётность в одной системе." />
+    <meta name="twitter:description" content="EmbryoDoc — электронный документооборот для центров ВРТ: эмбриология, крио, циклы ВРТ, ЕГИСЗ и отчётность в одной системе." />
     <meta property="og:url" content="https://embryodoc.app/" />
     <meta name="twitter:domain" content="embryodoc.app" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:dnt" content="on" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600&amp;display=swap" rel="stylesheet" />
+    <link href="/css/embryodoc.css" rel="stylesheet" />
+    <script src="/js/embryodoc.js"></script>
   </head>
-  <body class="container">
-    <div style="padding-top: 20px; padding-bottom: 20px; padding-left: 40px; padding-right: 40px">
-      <div>
-        <a href="#home" class="fs-3">EmbryoDoc</a>
-        <div>
-          <a href="#embryologists" style="margin-left: 15px; margin-right: 15px">Эмбриологам</a>
-          <a href="#doctors" style="margin-left: 15px; margin-right: 15px">Репродуктологам</a>
-          <a href="#administrators" style="margin-left: 15px; margin-right: 15px">Администраторам</a>
-          <a href="#clients" style="margin-left: 15px; margin-right: 15px">Клиентам</a>
-          <a href="#contact" style="margin-left: 15px; margin-right: 15px">Контакты</a>
-        </div>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a href="/" class="logo" aria-label="EmbryoDoc, на главную">
+          <svg role="img" aria-label="EmbryoDoc" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 908.23 385.1">
+            <path style="fill:var(--logo-ink)" d="M319.44,406.61c10.36-14.33,24.27-22.49,40.88-26.25,24.49-5.53,46.32,10.48,47.68,35.68.91,16.78.45,33.63.52,50.45.06,15-.08,30,.08,45,0,3.24-.78,4.31-4.13,4.16a180.81,180.81,0,0,0-18.48,0c-3.7.2-4.24-1.18-4.22-4.49.13-27.81.06-55.63.09-83.44a39.76,39.76,0,0,0-1.33-11.36C376.61,403,366.41,396,352.69,397.63a50.19,50.19,0,0,0-29.15,14,11.16,11.16,0,0,0-3.65,8.79c.15,30.15,0,60.3.16,90.45,0,3.51-.51,5-4.5,4.75a143.58,143.58,0,0,0-17.48,0c-3.8.2-5-.76-5-4.82.2-28.15.05-56.3.14-84.45a31.44,31.44,0,0,0-4.17-16.69c-5.84-9.77-15.17-14.13-26.28-11.82A57.52,57.52,0,0,0,234.06,413a9.32,9.32,0,0,0-3,7.42c.12,30.14,0,60.29.18,90.44,0,4.08-1.21,4.94-4.95,4.76-6-.3-12-.19-18,0-2.63.07-3.79-.42-3.79-3.46q.15-63.47,0-126.92c0-2.95,1-3.63,3.77-3.56,6.32.18,12.66.22,19,0,3-.12,4.06.65,3.94,3.82-.25,6.62-.08,13.25-.08,20.91l4.39-4c12.2-11.16,25.51-20.53,42.32-22.88C296,376.94,313.48,388.46,319.44,406.61Z" transform="translate(-57.89 -313.36)" />
+            <path style="fill:#FF9800" d="M381.9,608.63c0-27.31.07-54.62-.08-81.93,0-3.67.81-4.84,4.65-4.78,23,.37,46-.48,68.94.63a140.52,140.52,0,0,1,37.21,6.64c31.17,10.24,59.25,42.59,53.86,88.52S506,689.94,464.07,694.33c-26.21,2.74-52.59.55-78.88,1.19-3.89.1-3.29-2.18-3.29-4.46Zm29.11-.24c0,23.31.05,46.62-.05,69.92,0,3,.39,4.44,4,4.35,11.15-.3,22.36.43,33.46-.4,24.37-1.82,43.51-12.69,55.26-34.73,8.68-16.29,10.4-33.82,8.3-51.89a67.57,67.57,0,0,0-55.73-59.32C442.65,534,429,535.58,415.34,535c-3.57-.16-4.42,1-4.4,4.47C411.08,562.44,411,585.41,411,608.39Z" transform="translate(-57.89 -313.36)" />
+            <path style="fill:var(--logo-ink)" d="M465,406.41a62.84,62.84,0,0,1,22.41-20.58c22.33-12.31,47.77-7.44,63.48,12.72,16.11,20.67,17.25,44.06,8.88,67.67-19.49,55.06-76.41,63.42-115.66,40.41-4.12-2.42-5.83-5.18-5.81-10.27q.35-85.17,0-170.34c0-4,1.08-6.07,4.88-7.1,5.72-1.56,10.75-5.15,16.92-5.53,3.69-.23,5,.6,5,4.72-.21,27.3-.11,54.61-.11,81.92Zm0,48.16q0,17.71,0,35.43c0,1.61-.23,3.17,1.17,4.61,15,15.46,38.95,18.33,54.79,1,16.43-18,20.79-54.3,8.73-75.42-15.16-26.52-43.19-25.39-61.89-7.62a8.83,8.83,0,0,0-2.88,7C465.14,431.28,465,442.93,465,454.57Z" transform="translate(-57.89 -313.36)" />
+            <path style="fill:var(--logo-ink)" d="M966.12,445.44c-.2,41.48-31.14,73.21-71.17,73s-70.3-30.11-70.07-69c.23-39.73,31.2-70.6,70.78-70.54C936,379,966.31,407.64,966.12,445.44Zm-30,10a112.9,112.9,0,0,0-1.28-17.77c-2-13.14-5.42-25.71-14.65-35.85-17.95-19.73-45.53-16.47-58.21,6.83-.79,1.46-1.49,3-2.14,4.49-7.86,18.42-5.84,37.08-1.15,55.73,2.84,11.3,8,21.48,16.67,29.5,17.43,16.08,40.35,12.84,52.54-7.42C934.34,480.24,936.56,468.46,936.11,455.46Z" transform="translate(-57.89 -313.36)" />
+            <path style="fill:var(--logo-ink)" d="M58,428.75c0-27.32.07-54.64-.09-82,0-3.57.65-4.73,4.54-4.72q55.73.27,111.46,0c5,0,4.64,2.41,4.62,5.72s.46,5.82-4.63,5.77c-27.48-.29-55-.07-82.47-.22-3.4,0-4.45.7-4.41,4.28q.3,26.75,0,53.47c0,3.51.89,4.42,4.39,4.39,17.5-.19,35,.14,52.48-.24,4.92-.1,4.5,2.35,4.27,5.42-.21,2.76,1.5,6.15-4.12,6-17.65-.37-35.32,0-53-.22-3.36,0-4,1-4,4.14q.2,34.73,0,69.46c0,3.43.76,4.44,4.33,4.42,27.49-.16,55,.12,82.47-.26,5.69-.08,4.42,2.9,4.71,6.08.35,3.81-.35,5.39-4.88,5.36q-55.47-.33-111,0c-4,0-4.81-1.15-4.79-4.93C58.05,483.39,58,456.07,58,428.75Z" transform="translate(-57.89 -313.36)" />
+            <path style="fill:#FF9800" d="M757.87,616.35c.59,17,4.21,33,15.49,46.37,19.15,22.71,51.78,19.95,66.83-5.65a116,116,0,0,0,6.13-12.52c.88-2,1.85-3.34,3.91-1.84,1.77,1.3,6.12.15,4.73,4.69-7.14,23.33-19.61,42.06-44.56,48.88-35.9,9.82-72.06-14.67-78.27-52.54-5.65-34.44,13.59-68.93,45.61-80.66,19.75-7.25,39.34-5.49,58,4.06,9.13,4.68,15.85,11.72,16.28,22.8.32,8.24-7.43,15.24-16.84,15.55-8.95.28-16.23-5.54-16.17-14,.16-22.15-16-24.77-31.13-21.36-17.31,3.9-25.48,16.85-28.9,33.34A51.88,51.88,0,0,0,757.87,616.35Z" transform="translate(-57.89 -313.36)" />
+            <path style="fill:var(--accent)" d="M639.35,558.47a70,70,0,1,1-1,139.95c-38.43-.2-69.5-31.78-69.34-70.49C569.13,589.46,600.66,558.36,639.35,558.47ZM639,685.41a57,57,0,1,0-57-56.85A57.1,57.1,0,0,0,639,685.41Z" transform="translate(-57.89 -313.36)" />
+            <path style="fill:var(--logo-ink)" d="M615.94,406.6c5.95-7.64,11.2-14.21,17.9-19.41,7.48-5.79,15.61-9.7,25.39-7.63,7.24,1.53,13,5.13,15.15,12.77,2,7.13-2,13.51-9.1,15.22-6.27,1.5-12.14.39-17.92-2.33-10.42-4.91-14.7-3.81-22.21,4.71-6.37,7.2-9.8,14.83-9.47,25.06.8,25.29.19,50.62.34,75.93,0,3.56-.56,5-4.51,4.72a135.94,135.94,0,0,0-17.48,0c-3.77.22-4.7-.88-4.68-4.64.17-29.48.1-58.95.1-88.43,0-12.16.12-24.32-.08-36.47-.06-3.44.82-4.64,4.4-4.46a171.17,171.17,0,0,0,18,0c3.72-.21,4.39,1.22,4.26,4.53C615.77,392.55,615.94,399,615.94,406.6Z" transform="translate(-57.89 -313.36)" />
+            <path style="fill:var(--accent)" d="M759.06,477c6.22-8.82,11.22-18.47,18.35-26.67,4.06-4.67,8.13-9.36,13.18-12.92C811,423,823.17,402.67,832,379.9c.36-.93.66-1.88,1-2.81.86-2.13,2.38-3.32,4.69-2.45,2.12.8,2.3,2.59,1.73,4.57-6.64,22.91-16.08,44.64-34.64,60.19-19.8,16.57-32.23,37.48-41,61C758.87,513.31,753.51,526,748,538.65c-5,11.31-11.78,21.27-21.64,28.86s-20.62,11.47-33.12,8.88c-8-1.67-13.83-7.2-14.37-13.36-1-11.51,10.74-19.21,22.65-14.78a56.76,56.76,0,0,1,5.81,2.85c7.45,3.8,13.64,2.7,19.37-3.43a36.36,36.36,0,0,0,6.33-9.54q6-12.89,11.77-25.88a23.24,23.24,0,0,0,1-4.3Z" transform="translate(-57.89 -313.36)" />
+            <path style="fill:var(--logo-ink)" d="M759.06,477l-13.25,31c-6.61-12-13.3-24-19.81-36.14q-22.79-42.29-45.41-84.64c-.84-1.57-1.6-3.18-2.68-5.33,9.66,0,18.74.09,27.82,0,3-.05,3.37,2.21,4.34,4q23.79,44.28,47.54,88.58C758.08,475.25,758.58,476.12,759.06,477Z" transform="translate(-57.89 -313.36)" />
+            <path style="fill:var(--accent)" d="M661.94,631a26.48,26.48,0,1,1-26.2-26.5A26.43,26.43,0,0,1,661.94,631Zm-26.49-2.25a7.18,7.18,0,1,0-14.35.12,7.53,7.53,0,0,0,7,7.13A7.43,7.43,0,0,0,635.45,628.73Z" transform="translate(-57.89 -313.36)" />
+            <path style="fill:var(--logo-hole)" d="M635.45,628.73a7.43,7.43,0,0,1-7.36,7.25,7.19,7.19,0,0,1,.39-14.38A7.44,7.44,0,0,1,635.45,628.73Z" transform="translate(-57.89 -313.36)" />
+          </svg> </a>
+        <nav class="nav" aria-label="Разделы">
+          <a href="#embryologists" class="nav-link">Эмбриологам</a>
+          <a href="#doctors" class="nav-link">Репродуктологам</a>
+          <a href="#administrators" class="nav-link">Администраторам</a>
+          <a href="#patients" class="nav-link">Пациентам</a>
+          <button id="theme-toggle" type="button" class="theme-toggle" aria-label="Сменить тему">
+            <svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+            </svg></button>
+          <a href="#contact" class="btn sm">Запросить демо</a>
+        </nav>
       </div>
-    </div>
-    <div class="ig-main-content">
-      <div id="home" style="padding-top: 80px; padding-bottom: 80px">
-        <h1>EmbryoDoc</h1>
-        <h2 class="text-body-secondary">Современная система электронного документооборота для Центров ВРТ</h2>
-        <p class="lead" style="margin-top: 20px">Автоматизация процессов, контроль качества данных, интеграция с ЕГИСЗ</p>
-        <a href="#contact" class="btn btn-primary" style="margin-top: 30px">Запросить демо</a>
+    </header>
+    <main id="top">
+      <div class="ig-main-content">
+        <div class="wrap hero">
+          <div class="hero-copy">
+            <span class="overline">Электронный документооборот · Центры ВРТ</span>
+            <h1>Каждый эмбрион и каждый протокол — в одной системе.</h1>
+            <p class="lead">EmbryoDoc ведёт цикл ВРТ от стимуляции до переноса: эмбриология, крио, документы и обмен с ЕГИСЗ. Данные вносятся один раз и проверяются на каждом шаге.</p>
+            <div class="actions">
+              <a href="#contact" class="btn lg">Запросить демо</a>
+              <a href="#embryologists" class="btn lg secondary">Возможности</a>
+            </div>
+            <div class="tags">
+              <span class="tag neutral">Приказ № 803н</span>
+              <span class="tag neutral">ЕГИСЗ · СЭМД</span>
+              <span class="tag neutral">Отчёт РАРЧ</span>
+            </div>
+          </div>
+          <div class="record" aria-label="Пример карточки культивирования">
+            <div class="record-head">
+              <span class="overline">Культивирование · цикл 2026-0412</span>
+              <b>Эмбрион 2</b>
+            </div>
+            <div class="record-photo">
+              <img src="/images/4_2_morula.jpeg" alt="Эмбрион человека на третьи сутки, стадия дробления, снимок в микроскоп" />
+              <span>Д3 · 68 ч</span>
+            </div>
+            <span class="record-title">День 3 · дробление</span>
+            <div class="tags">
+              <span class="tag">Класс A</span>
+              <span class="tag neutral">Фрагментация &lt; 10 %</span>
+              <span class="tag neutral">Инкубатор 2</span>
+            </div>
+            <div class="days" aria-label="Дни культивирования">
+              <span class="done">Д0</span>
+              <span class="done">Д1</span>
+              <span class="done">Д2</span>
+              <span class="now">Д3</span>
+              <span>Д4</span>
+              <span>Д5</span>
+              <span>Д6</span>
+            </div>
+          </div>
+        </div>
+        <div class="wrap roles">
+          <a href="#embryologists" class="card"><span class="num">01</span><span class="card-title">Эмбриологам</span><span class="card-body">Культивирование, крио, доноры, KPI лаборатории.</span><span class="arrow">Подробнее →</span></a>
+          <a href="#doctors" class="card"><span class="num">02</span><span class="card-title">Репродуктологам</span><span class="card-body">Циклы ВРТ, приёмы, шаблоны и ЕГИСЗ.</span><span class="arrow">Подробнее →</span></a>
+          <a href="#administrators" class="card"><span class="num">03</span><span class="card-title">Администраторам</span><span class="card-body">Расписание, касса и печатные формы.</span><span class="arrow">Подробнее →</span></a>
+          <a href="#patients" class="card"><span class="num">04</span><span class="card-title">Пациентам</span><span class="card-body">Приложение: эмбрионы, запись, документы.</span><span class="arrow">Подробнее →</span></a>
+        </div>
+        <section id="embryologists" class="section">
+          <div class="wrap">
+            <div class="section-head">
+              <span class="num">01</span>
+              <h2>Эмбриологам</h2>
+            </div>
+            <p class="section-lead">Вся работа лаборатории в одном журнале: от получения ооцитов до переноса и криохранения.</p>
+            <div class="split">
+              <div class="wide">
+                <figure class="media r4x3">
+                  <img src="/images/1_embryologist.jpeg" alt="Эмбриолог работает в лаборатории ЭКО за инвертированным микроскопом" />
+                </figure>
+              </div>
+              <div class="narrow">
+                <span class="overline">Культивирование</span>
+                <h3>Каждая стадия — с оценкой и снимком</h3>
+                <ul class="list">
+                  <li>Регистрация всех стадий развития эмбрионов</li>
+                  <li>Оценка морфологии на каждом этапе</li>
+                  <li>Фотодокументирование процесса</li>
+                  <li>Контроль параметров инкубаторов</li>
+                  <li>Учёт сред, реагентов и серий расходных материалов</li>
+                </ul>
+              </div>
+            </div>
+            <div class="grid cards-2">
+              <div class="card">
+                <div class="media r21x9">
+                  <img src="/images/3_cryo.jpeg" alt="Эмбриолог достаёт канистру из сосуда Дьюара с жидким азотом" />
+                </div>
+                <span class="card-title">КРИО хранилище</span>
+                <ul class="list">
+                  <li>Электронное хранилище, мужское и женское</li>
+                  <li>Учёт всех единиц биоматериала и история манипуляций</li>
+                  <li>Уведомления об окончании договоров на хранение</li>
+                </ul>
+              </div>
+              <div class="card">
+                <span class="overline">Real-time KPI</span>
+                <span class="card-title">Показатели лаборатории</span>
+                <ul class="list">
+                  <li>Частота наступления беременности по протоколам</li>
+                  <li>Процент оплодотворения и дробления</li>
+                  <li>Эффективность криопрограмм</li>
+                  <li>Качество эмбрионов и имплантационный потенциал</li>
+                  <li>Дашборды и графики без ручного сбора</li>
+                </ul>
+              </div>
+              <div class="card">
+                <span class="overline">Донорство</span>
+                <span class="card-title">Донорские программы</span>
+                <ul class="list">
+                  <li>База доноров ооцитов и спермы</li>
+                  <li>Профили доноров: фенотип и генотип</li>
+                  <li>Подбор по фенотипу</li>
+                  <li>Контроль числа детей от одного донора</li>
+                </ul>
+              </div>
+              <div class="card">
+                <span class="overline">Суррогатное материнство</span>
+                <span class="card-title">Программы суррогатного материнства</span>
+                <ul class="list">
+                  <li>База суррогатных матерей</li>
+                  <li>Подбор пары и синхронизация циклов</li>
+                  <li>Протоколы подготовки эндометрия</li>
+                  <li>Мониторинг беременности</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="doctors" class="section">
+          <div class="wrap">
+            <div class="section-head">
+              <span class="num">02</span>
+              <h2>Репродуктологам</h2>
+            </div>
+            <p class="section-lead">Цикл ВРТ ведётся в одной карте. Система связывает этапы лечения и проверяет назначения.</p>
+            <div class="split">
+              <div class="narrow">
+                <figure class="media r16x11">
+                  <img src="/images/2_doctor.jpeg" alt="Репродуктолог обсуждает план лечения с парой" />
+                </figure>
+              </div>
+              <div class="wide rows">
+                <div class="row">
+                  <h3>Электронные циклы ВРТ</h3>
+                  <p>Стимуляция по дням с препаратами, пункции и переносы. Логические связи между этапами и контроль назначений.</p>
+                </div>
+                <div class="row">
+                  <h3>Шаблоны</h3>
+                  <p>Обследования всех видов и протоколы УЗИ с измерениями. Настройка под клинику.</p>
+                </div>
+                <div class="row">
+                  <h3>Приёмы</h3>
+                  <p>Электронная медкарта, дневники приёмов, выписки и заключения.</p>
+                </div>
+                <div class="row">
+                  <h3>Интеграция с ЕГИСЗ</h3>
+                  <p>СЭМД создаются автоматически и отправляются в ЕГИСЗ. Формирование ИЭМК.</p>
+                </div>
+                <div class="row">
+                  <h3>Статистика</h3>
+                  <p>Эффективность протоколов, статистика по врачам и ежегодный отчёт РАРЧ.</p>
+                </div>
+              </div>
+            </div>
+            <div class="callout">
+              <p>Документы по приказу Минздрава № 803н от 31.07.2020 формируются из данных цикла.</p>
+              <a href="#contact" class="arrow">Посмотреть на демо →</a>
+            </div>
+          </div>
+        </section>
+        <section id="administrators" class="section">
+          <div class="wrap">
+            <div class="section-head">
+              <span class="num">03</span>
+              <h2>Администраторам</h2>
+            </div>
+            <p class="section-lead">Регистратура, касса и документы работают на тех же данных, что и врачи.</p>
+            <figure class="media r3x1 banner">
+              <img src="/images/5_reception.jpeg" alt="Администратор клиники ведёт расписание за стойкой регистратуры" />
+            </figure>
+            <div class="grid cards-3">
+              <div class="card">
+                <span class="card-title">Регистратура</span>
+                <ul class="list">
+                  <li>Календарь специалистов и кабинетов</li>
+                  <li>Гибкое расписание и услуги</li>
+                  <li>Онлайн-запись из внешних сервисов</li>
+                  <li>Контроль загрузки специалистов</li>
+                </ul>
+              </div>
+              <div class="card">
+                <span class="card-title">Касса</span>
+                <ul class="list">
+                  <li>Отчёты по оказанным услугам</li>
+                  <li>Учёт потраченных материалов</li>
+                  <li>Дебиторская задолженность</li>
+                  <li>Счета, акты и онлайн-кассы</li>
+                </ul>
+              </div>
+              <div class="card">
+                <span class="card-title">Печатные формы</span>
+                <ul class="list">
+                  <li>Договоры и информированные согласия</li>
+                  <li>Анкеты и опросники</li>
+                  <li>Шаблоны под нужды клиники</li>
+                  <li>Данные пациента подставляются сами</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="patients" class="section surface">
+          <div class="wrap split">
+            <div class="wide">
+              <div class="section-head">
+                <span class="num">04</span>
+                <h2>Пациентам</h2>
+              </div>
+              <p class="section-lead">Мобильное приложение клиники. Пациент видит свой цикл и не звонит, чтобы узнать новости.</p>
+              <div class="rows">
+                <div class="row">
+                  <h3>Культивирование</h3>
+                  <p>Снимки эмбрионов по дням, уведомления о важных этапах и комментарии эмбриолога.</p>
+                </div>
+                <div class="row">
+                  <h3>Запись на приём</h3>
+                  <p>Свободное время специалистов, напоминания, отмена и перенос.</p>
+                </div>
+                <div class="row">
+                  <h3>Личный кабинет</h3>
+                  <p>Календарь процедур, результаты анализов и документы для налогового вычета.</p>
+                </div>
+              </div>
+            </div>
+            <div class="phone" aria-label="Пример экрана приложения для пациента">
+              <div class="phone-screen">
+                <div>
+                  <span class="overline">Цикл ЭКО · октябрь</span>
+                  <div class="phone-title">
+                    Ваши эмбрионы
+                  </div>
+                </div>
+                <div class="p-card">
+                  <img src="/images/4_3_blastocista.jpeg" alt="Снимок бластоцисты в приложении" />
+                  <div class="p-row">
+                    <b>Эмбрион 1 · День 5</b>
+                    <span class="tag">Бластоциста</span>
+                  </div>
+                  <span class="p-muted">Обновлено сегодня в 10:20</span>
+                </div>
+                <div class="p-note">
+                  <b>Комментарий эмбриолога</b>Развитие идёт по плану. Перенос назначен на завтра, 11:00.
+                </div>
+                <div class="p-card p-row">
+                  <b>Перенос эмбриона</b>
+                  <span class="p-muted">Завтра · 11:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="benefits" class="section plain">
+          <div class="wrap">
+            <div class="section-head">
+              <span class="num">05</span>
+              <h2>Почему EmbryoDoc</h2>
+            </div>
+            <p class="section-lead">Система создана вместе с эмбриологами и врачами центров ВРТ.</p>
+            <div class="benefits">
+              <div class="benefit">
+                <h3>Меньше ошибок</h3>
+                <p>Система проверяет данные при вводе и не даёт пропустить этап.</p>
+              </div>
+              <div class="benefit">
+                <h3>Качество данных</h3>
+                <p>Один источник для лаборатории, врачей, кассы и отчётов.</p>
+              </div>
+              <div class="benefit">
+                <h3>Без рутины</h3>
+                <p>Документы, дневники и статистика собираются автоматически.</p>
+              </div>
+              <div class="benefit">
+                <h3>Соответствие закону</h3>
+                <p>Требования ЕГИСЗ и приказа № 803н выполняются из коробки.</p>
+              </div>
+              <div class="benefit">
+                <h3>Контроль всего цикла</h3>
+                <p>Каждый этап лечения виден и связан с предыдущим.</p>
+              </div>
+              <div class="benefit">
+                <h3>Удобно пациентам</h3>
+                <p>Приложение снимает лишние звонки и вопросы.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="contact" class="section inverse" data-theme="dark">
+          <div class="wrap contact">
+            <div>
+              <span class="overline accent">06 · Контакты</span>
+              <h2>Покажем EmbryoDoc на задачах вашей клиники</h2>
+              <p class="lead">Оставьте контакты — договоримся о демонстрации в удобное время. Отвечаем в течение рабочего дня.</p>
+              <a href="mailto:egor@ledkov.org">egor@ledkov.org</a>
+            </div>
+            <form id="demo-form" class="form" data-email="egor@ledkov.org">
+              <div class="field">
+                <label for="f-name">Имя</label>
+                <input id="f-name" name="name" placeholder="Анна Петрова" />
+              </div>
+              <div class="field">
+                <label for="f-clinic">Клиника</label>
+                <input id="f-clinic" name="clinic" placeholder="Центр ВРТ" />
+              </div>
+              <div class="field full">
+                <label for="f-contact">Телефон или email</label>
+                <input id="f-contact" name="contact" placeholder="+7 … или name@clinic.ru" />
+              </div>
+              <div class="field full">
+                <label for="f-msg">Что важно показать</label>
+                <textarea id="f-msg" name="message" placeholder="Например: крио хранилище и отчёт РАРЧ"></textarea>
+              </div>
+              <div class="form-foot full">
+                <button type="submit" class="btn lg">Запросить демо</button>
+                <span>Откроется письмо в вашей почтовой программе.</span>
+              </div>
+            </form>
+          </div>
+        </section>
       </div>
-      <div style="padding-top: 60px; padding-bottom: 60px">
-        <h2 style="margin-bottom: 40px">Комплексное решение для каждого участника процесса ВРТ</h2>
-        <p style="margin-bottom: 30px">Программа предназначена для осуществления электронного документооборота, автоматизированного сбора статистических данных, анализа проведенных процедур и результатов лечений в рамках Центров ВРТ.</p>
+    </main>
+    <footer class="site-footer" data-theme="dark">
+      <div class="wrap">
+        <span>EmbryoDoc · Электронный документооборот для центров ВРТ</span>
+        <nav aria-label="Контакты">
+          <a href="#contact">Контакты</a>
+          <a href="mailto:egor@ledkov.org">egor@ledkov.org</a>
+        </nav>
       </div>
-      <div id="embryologists" style="padding-top: 60px; padding-bottom: 60px">
-        <h2 style="margin-bottom: 50px">🧬 Для эмбриологов</h2>
-        <div>
-          <h3 style="margin-bottom: 20px">Культивирование эмбрионов</h3>
-          <p style="margin-bottom: 10px">• Регистрация всех стадий развития эмбрионов</p>
-          <p style="margin-bottom: 10px">• Оценка морфологии на каждом этапе</p>
-          <p style="margin-bottom: 10px">• Фотодокументирование процесса</p>
-          <p style="margin-bottom: 10px">• Контроль параметров инкубаторов</p>
-          <p style="margin-bottom: 10px">• Регистрация используемых сред и реагентов</p>
-          <p style="margin-bottom: 30px">• Учет серий расходных материалов</p>
-        </div>
-        <div>
-          <h3 style="margin-bottom: 20px">КРИО хранилище</h3>
-          <p style="margin-bottom: 10px">• Ведение электронного КРИО хранилища (мужского и женского)</p>
-          <p style="margin-bottom: 10px">• Учет всех единиц биоматериала</p>
-          <p style="margin-bottom: 10px">• Нотификация по истечении договоров на хранение</p>
-          <p style="margin-bottom: 10px">• История всех манипуляций с биоматериалом</p>
-          <p style="margin-bottom: 30px">• Контроль условий хранения</p>
-        </div>
-        <div>
-          <h3 style="margin-bottom: 20px">Real-time KPI</h3>
-          <p style="margin-bottom: 10px">• Частота наступления беременности по протоколам</p>
-          <p style="margin-bottom: 10px">• Процент оплодотворения и дробления</p>
-          <p style="margin-bottom: 10px">• Эффективность криопрограмм</p>
-          <p style="margin-bottom: 10px">• Качество получаемых эмбрионов</p>
-          <p style="margin-bottom: 10px">• Имплантационный потенциал</p>
-          <p style="margin-bottom: 30px">• Автоматические дашборды и графики</p>
-        </div>
-        <div>
-          <h3 style="margin-bottom: 20px">Донорские программы</h3>
-          <p style="margin-bottom: 10px">• База доноров ооцитов и спермы</p>
-          <p style="margin-bottom: 10px">• Расширенные профили доноров (фенотип, генотип)</p>
-          <p style="margin-bottom: 10px">• Система подбора по фенотипу</p>
-          <p style="margin-bottom: 10px">• Контроль количества детей от одного донора</p>
-          <p style="margin-bottom: 30px">• История использования донорского материала</p>
-        </div>
-        <div>
-          <h3 style="margin-bottom: 20px">Суррогатное материнство</h3>
-          <p style="margin-bottom: 10px">• База суррогатных матерей</p>
-          <p style="margin-bottom: 10px">• Подбор пар (генетические родители + суррогатная мать)</p>
-          <p style="margin-bottom: 10px">• Синхронизация циклов</p>
-          <p style="margin-bottom: 10px">• Протоколы подготовки эндометрия</p>
-          <p style="margin-bottom: 10px">• Мониторинг беременности</p>
-        </div>
-      </div>
-      <div id="doctors" style="padding-top: 60px; padding-bottom: 60px">
-        <h2 style="margin-bottom: 50px">👨‍⚕️ Для репродуктологов</h2>
-        <div>
-          <h3 style="margin-bottom: 20px">Электронные циклы ВРТ</h3>
-          <p style="margin-bottom: 10px">• Подробная стимуляция с информацией по препаратам на каждый день</p>
-          <p style="margin-bottom: 10px">• Протоколирование пункций и переносов</p>
-          <p style="margin-bottom: 10px">• Создание документации по приказу Минздрава РФ № 803н от 31.07.2020</p>
-          <p style="margin-bottom: 10px">• Логические связи между этапами лечения</p>
-          <p style="margin-bottom: 30px">• Контроль корректности назначений</p>
-        </div>
-        <div>
-          <h3 style="margin-bottom: 20px">Электронные шаблоны</h3>
-          <p style="margin-bottom: 10px">• Шаблоны обследований всех видов</p>
-          <p style="margin-bottom: 10px">• Протоколы УЗИ с измерениями</p>
-          <p style="margin-bottom: 10px">• Гибкая настройка шаблонов под клинику</p>
-          <p style="margin-bottom: 30px">• Быстрое заполнение типовых документов</p>
-        </div>
-        <div>
-          <h3 style="margin-bottom: 20px">Ведение приемов</h3>
-          <p style="margin-bottom: 10px">• Электронная медицинская карта пациента</p>
-          <p style="margin-bottom: 10px">• Автоматическая генерация дневников приемов</p>
-          <p style="margin-bottom: 10px">• Создание выписок и заключений</p>
-          <p style="margin-bottom: 30px">• История всех назначений и процедур</p>
-        </div>
-        <div>
-          <h3 style="margin-bottom: 20px">Интеграция с ЕГИСЗ</h3>
-          <p style="margin-bottom: 10px">• Автоматическое создание СЭМДов</p>
-          <p style="margin-bottom: 10px">• Отправка медицинских записей в ЕГИСЗ</p>
-          <p style="margin-bottom: 10px">• Формирование ИЭМК</p>
-          <p style="margin-bottom: 30px">• Соответствие всем требованиям законодательства</p>
-        </div>
-        <div>
-          <h3 style="margin-bottom: 20px">Статистика и анализ</h3>
-          <p style="margin-bottom: 10px">• Автоматизированный сбор данных</p>
-          <p style="margin-bottom: 10px">• Анализ эффективности протоколов</p>
-          <p style="margin-bottom: 10px">• Автоматическая генерация ежегодного отчета РАРЧ</p>
-          <p style="margin-bottom: 10px">• Персональная статистика по врачам</p>
-          <p style="margin-bottom: 10px">• Сравнительный анализ результатов</p>
-        </div>
-      </div>
-      <div id="administrators" style="padding-top: 60px; padding-bottom: 60px">
-        <h2 style="margin-bottom: 50px">🏥 Для администраторов</h2>
-        <div>
-          <h3 style="margin-bottom: 20px">Регистратура</h3>
-          <p style="margin-bottom: 10px">• Подробный календарь специалистов</p>
-          <p style="margin-bottom: 10px">• Управление кабинетами и услугами</p>
-          <p style="margin-bottom: 10px">• Гибкая настройка расписания</p>
-          <p style="margin-bottom: 10px">• Интеграция с онлайн сервисами записи</p>
-          <p style="margin-bottom: 30px">• Контроль загрузки специалистов</p>
-        </div>
-        <div>
-          <h3 style="margin-bottom: 20px">Кассовая система</h3>
-          <p style="margin-bottom: 10px">• Подробная отчетность по оказанным услугам</p>
-          <p style="margin-bottom: 10px">• Учет потраченных материалов</p>
-          <p style="margin-bottom: 10px">• Контроль дебиторской задолженности</p>
-          <p style="margin-bottom: 10px">• Формирование счетов и актов</p>
-          <p style="margin-bottom: 30px">• Интеграция с онлайн-кассами</p>
-        </div>
-        <div>
-          <h3 style="margin-bottom: 20px">Печатные формы</h3>
-          <p style="margin-bottom: 10px">• Быстрая генерация договоров</p>
-          <p style="margin-bottom: 10px">• Информированные согласия</p>
-          <p style="margin-bottom: 10px">• Анкеты и опросники</p>
-          <p style="margin-bottom: 10px">• Гибкие шаблоны под нужды клиники</p>
-          <p style="margin-bottom: 10px">• Автоматическое заполнение данных пациента</p>
-        </div>
-      </div>
-      <div id="clients" style="padding-top: 60px; padding-bottom: 60px">
-        <h2 style="margin-bottom: 50px">📱 Для клиентов</h2>
-        <p class="lead" style="margin-bottom: 40px">Мобильное приложение для комфортного взаимодействия с клиникой</p>
-        <div>
-          <h3 style="margin-bottom: 20px">Мониторинг культивирования</h3>
-          <p style="margin-bottom: 10px">• Отслеживание развития своих эмбрионов в реальном времени</p>
-          <p style="margin-bottom: 10px">• Фотографии эмбрионов на разных стадиях</p>
-          <p style="margin-bottom: 10px">• Уведомления о важных этапах</p>
-          <p style="margin-bottom: 30px">• Комментарии эмбриолога</p>
-        </div>
-        <div>
-          <h3 style="margin-bottom: 20px">Запись на прием</h3>
-          <p style="margin-bottom: 10px">• Онлайн запись к специалистам</p>
-          <p style="margin-bottom: 10px">• Просмотр доступного расписания</p>
-          <p style="margin-bottom: 10px">• Напоминания о визитах</p>
-          <p style="margin-bottom: 30px">• Отмена и перенос записей</p>
-        </div>
-        <div>
-          <h3 style="margin-bottom: 20px">Личный кабинет</h3>
-          <p style="margin-bottom: 10px">• Проверка календаря процедур</p>
-          <p style="margin-bottom: 10px">• Просмотр оказанных услуг</p>
-          <p style="margin-bottom: 10px">• Запрос бухгалтерских документов для налогового вычета</p>
-          <p style="margin-bottom: 10px">• История приемов и назначений</p>
-          <p style="margin-bottom: 10px">• Результаты анализов и обследований</p>
-        </div>
-      </div>
-      <div style="padding-top: 60px; padding-bottom: 60px">
-        <h2 style="margin-bottom: 40px">Преимущества EmbryoDoc</h2>
-        <div>
-          <p style="margin-bottom: 15px">✓ Исключение ошибок человеческого фактора</p>
-          <p style="margin-bottom: 15px">✓ Повышение качества медицинских данных</p>
-          <p style="margin-bottom: 15px">✓ Автоматизация рутинных процессов</p>
-          <p style="margin-bottom: 15px">✓ Соответствие требованиям ЕГИСЗ и приказу № 803н</p>
-          <p style="margin-bottom: 15px">✓ Контроль на всех этапах лечения</p>
-          <p>✓ Удобство для пациентов</p>
-        </div>
-      </div>
-      <div id="contact" style="padding-top: 80px; padding-bottom: 80px">
-        <h2 style="margin-bottom: 20px">Готовы начать?</h2>
-        <p class="lead" style="margin-bottom: 30px">Запросите демонстрацию возможностей EmbryoDoc</p>
-        <a href="mailto:egor@ledkov.org" class="btn btn-primary">Связаться с нами</a>
-      </div>
-    </div>
-    <p class="text-center mt-5">Created in Swift with <a href="https://github.com/twostraws/Ignite">Ignite</a></p>
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    </footer>
     <script src="/js/ignite-core.js"></script>
   </body>
 </html>

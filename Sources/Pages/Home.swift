@@ -3,469 +3,233 @@ import Ignite
 
 struct Home: StaticPage {
 	var title = "Главная"
+	var description = "EmbryoDoc — электронный документооборот для центров ВРТ: эмбриология, крио, циклы ВРТ, ЕГИСЗ и отчётность в одной системе."
 
 	var body: some HTML {
-		// Hero Section
-		Section {
-			Text("EmbryoDoc")
-				.font(.title1)
+		hero
+		roles
+		embryologists
+		doctors
+		administrators
+		patients
+		benefits
+		contact
+	}
 
-			Text("Современная система электронного документооборота для Центров ВРТ")
-				.font(.title2)
-				.foregroundStyle(.secondary)
+	private var hero: some HTML {
+		Tag("div") {
+			Tag("div") {
+				Tag("span") { "Электронный документооборот · Центры ВРТ" }
+					.class("overline")
+				Tag("h1") { "Каждый эмбрион и каждый протокол — в одной системе." }
+				Tag("p") { "EmbryoDoc ведёт цикл ВРТ от стимуляции до переноса: эмбриология, крио, документы и обмен с ЕГИСЗ. Данные вносятся один раз и проверяются на каждом шаге." }
+					.class("lead")
 
-			Text("Автоматизация процессов, контроль качества данных, интеграция с ЕГИСЗ")
-				.font(.lead)
-				.margin(.top, 20)
+				Tag("div") {
+					Tag("a") { "Запросить демо" }
+						.class("btn lg")
+						.attribute("href", "#contact")
+					Tag("a") { "Возможности" }
+						.class("btn lg secondary")
+						.attribute("href", "#embryologists")
+				}
+				.class("actions")
 
-			Link("Запросить демо", target: "#contact")
-				.linkStyle(.button)
-				.role(.primary)
-				.margin(.top, 30)
+				Tag("div") {
+					ForEach(["Приказ № 803н", "ЕГИСЗ · СЭМД", "Отчёт РАРЧ"]) { label in
+						Tag("span") { label }
+							.class("tag neutral")
+					}
+				}
+				.class("tags")
+			}
+			.class("hero-copy")
+
+			CultureRecord()
 		}
-		.padding(.vertical, 80)
-		.id("home")
+		.class("wrap hero")
+	}
 
-		// Problem/Solution Section
-		Section {
-			Text("Комплексное решение для каждого участника процесса ВРТ")
-				.font(.title2)
-				.margin(.bottom, 40)
-
-			Text("Программа предназначена для осуществления электронного документооборота, автоматизированного сбора статистических данных, анализа проведенных процедур и результатов лечений в рамках Центров ВРТ.")
-				.font(.body)
-				.margin(.bottom, 30)
+	private var roles: some HTML {
+		Tag("div") {
+			RoleCard(number: "01", title: "Эмбриологам", text: "Культивирование, крио, доноры, KPI лаборатории.", target: "#embryologists")
+			RoleCard(number: "02", title: "Репродуктологам", text: "Циклы ВРТ, приёмы, шаблоны и ЕГИСЗ.", target: "#doctors")
+			RoleCard(number: "03", title: "Администраторам", text: "Расписание, касса и печатные формы.", target: "#administrators")
+			RoleCard(number: "04", title: "Пациентам", text: "Приложение: эмбрионы, запись, документы.", target: "#patients")
 		}
-		.padding(.vertical, 60)
+		.class("wrap roles")
+	}
 
-		// FOR EMBRYOLOGISTS SECTION
-		Section {
-			Text("🧬 Для эмбриологов")
-				.font(.title2)
-				.margin(.bottom, 50)
+	private var embryologists: some HTML {
+		PageSection(id: "embryologists", number: "01", title: "Эмбриологам", lead: "Вся работа лаборатории в одном журнале: от получения ооцитов до переноса и криохранения.") {
+			Tag("div") {
+				Tag("div") {
+					Photo(path: "/images/1_embryologist.jpeg", description: "Эмбриолог работает в лаборатории ЭКО за инвертированным микроскопом", ratio: "r4x3")
+				}
+				.class("wide")
 
-			// Cultivation
-			Section {
-				Text("Культивирование эмбрионов")
-					.font(.title3)
-					.margin(.bottom, 20)
-
-				Text("• Регистрация всех стадий развития эмбрионов")
-					.margin(.bottom, 10)
-
-				Text("• Оценка морфологии на каждом этапе")
-					.margin(.bottom, 10)
-
-				Text("• Фотодокументирование процесса")
-					.margin(.bottom, 10)
-
-				Text("• Контроль параметров инкубаторов")
-					.margin(.bottom, 10)
-
-				Text("• Регистрация используемых сред и реагентов")
-					.margin(.bottom, 10)
-
-				Text("• Учет серий расходных материалов")
-					.margin(.bottom, 30)
+				Tag("div") {
+					Tag("span") { "Культивирование" }
+						.class("overline")
+					Tag("h3") { "Каждая стадия — с оценкой и снимком" }
+					BulletList(items: [
+						"Регистрация всех стадий развития эмбрионов",
+						"Оценка морфологии на каждом этапе",
+						"Фотодокументирование процесса",
+						"Контроль параметров инкубаторов",
+						"Учёт сред, реагентов и серий расходных материалов",
+					])
+				}
+				.class("narrow")
 			}
+			.class("split")
 
-			// CRYO Storage
-			Section {
-				Text("КРИО хранилище")
-					.font(.title3)
-					.margin(.bottom, 20)
-
-				Text("• Ведение электронного КРИО хранилища (мужского и женского)")
-					.margin(.bottom, 10)
-
-				Text("• Учет всех единиц биоматериала")
-					.margin(.bottom, 10)
-
-				Text("• Нотификация по истечении договоров на хранение")
-					.margin(.bottom, 10)
-
-				Text("• История всех манипуляций с биоматериалом")
-					.margin(.bottom, 10)
-
-				Text("• Контроль условий хранения")
-					.margin(.bottom, 30)
+			Tag("div") {
+				FeatureCard(
+					image: ("/images/3_cryo.jpeg", "Эмбриолог достаёт канистру из сосуда Дьюара с жидким азотом"),
+					title: "КРИО хранилище",
+					items: [
+						"Электронное хранилище, мужское и женское",
+						"Учёт всех единиц биоматериала и история манипуляций",
+						"Уведомления об окончании договоров на хранение",
+					]
+				)
+				FeatureCard(overline: "Real-time KPI", title: "Показатели лаборатории", items: [
+					"Частота наступления беременности по протоколам",
+					"Процент оплодотворения и дробления",
+					"Эффективность криопрограмм",
+					"Качество эмбрионов и имплантационный потенциал",
+					"Дашборды и графики без ручного сбора",
+				])
+				FeatureCard(overline: "Донорство", title: "Донорские программы", items: [
+					"База доноров ооцитов и спермы",
+					"Профили доноров: фенотип и генотип",
+					"Подбор по фенотипу",
+					"Контроль числа детей от одного донора",
+				])
+				FeatureCard(overline: "Суррогатное материнство", title: "Программы суррогатного материнства", items: [
+					"База суррогатных матерей",
+					"Подбор пары и синхронизация циклов",
+					"Протоколы подготовки эндометрия",
+					"Мониторинг беременности",
+				])
 			}
-
-			// KPI
-			Section {
-				Text("Real-time KPI")
-					.font(.title3)
-					.margin(.bottom, 20)
-
-				Text("• Частота наступления беременности по протоколам")
-					.margin(.bottom, 10)
-
-				Text("• Процент оплодотворения и дробления")
-					.margin(.bottom, 10)
-
-				Text("• Эффективность криопрограмм")
-					.margin(.bottom, 10)
-
-				Text("• Качество получаемых эмбрионов")
-					.margin(.bottom, 10)
-
-				Text("• Имплантационный потенциал")
-					.margin(.bottom, 10)
-
-				Text("• Автоматические дашборды и графики")
-					.margin(.bottom, 30)
-			}
-
-			// Donation
-			Section {
-				Text("Донорские программы")
-					.font(.title3)
-					.margin(.bottom, 20)
-
-				Text("• База доноров ооцитов и спермы")
-					.margin(.bottom, 10)
-
-				Text("• Расширенные профили доноров (фенотип, генотип)")
-					.margin(.bottom, 10)
-
-				Text("• Система подбора по фенотипу")
-					.margin(.bottom, 10)
-
-				Text("• Контроль количества детей от одного донора")
-					.margin(.bottom, 10)
-
-				Text("• История использования донорского материала")
-					.margin(.bottom, 30)
-			}
-
-			// Surrogate
-			Section {
-				Text("Суррогатное материнство")
-					.font(.title3)
-					.margin(.bottom, 20)
-
-				Text("• База суррогатных матерей")
-					.margin(.bottom, 10)
-
-				Text("• Подбор пар (генетические родители + суррогатная мать)")
-					.margin(.bottom, 10)
-
-				Text("• Синхронизация циклов")
-					.margin(.bottom, 10)
-
-				Text("• Протоколы подготовки эндометрия")
-					.margin(.bottom, 10)
-
-				Text("• Мониторинг беременности")
-					.margin(.bottom, 10)
-			}
+			.class("grid cards-2")
 		}
-		.padding(.vertical, 60)
-		.id("embryologists")
+	}
 
-		// FOR REPRODUCTIVE SPECIALISTS SECTION
-		Section {
-			Text("👨‍⚕️ Для репродуктологов")
-				.font(.title2)
-				.margin(.bottom, 50)
+	private var doctors: some HTML {
+		PageSection(id: "doctors", number: "02", title: "Репродуктологам", lead: "Цикл ВРТ ведётся в одной карте. Система связывает этапы лечения и проверяет назначения.") {
+			Tag("div") {
+				Tag("div") {
+					Photo(path: "/images/2_doctor.jpeg", description: "Репродуктолог обсуждает план лечения с парой", ratio: "r16x11")
+				}
+				.class("narrow")
 
-			// IVF Cycles
-			Section {
-				Text("Электронные циклы ВРТ")
-					.font(.title3)
-					.margin(.bottom, 20)
-
-				Text("• Подробная стимуляция с информацией по препаратам на каждый день")
-					.margin(.bottom, 10)
-
-				Text("• Протоколирование пункций и переносов")
-					.margin(.bottom, 10)
-
-				Text("• Создание документации по приказу Минздрава РФ № 803н от 31.07.2020")
-					.margin(.bottom, 10)
-
-				Text("• Логические связи между этапами лечения")
-					.margin(.bottom, 10)
-
-				Text("• Контроль корректности назначений")
-					.margin(.bottom, 30)
+				Tag("div") {
+					FeatureRow(title: "Электронные циклы ВРТ", text: "Стимуляция по дням с препаратами, пункции и переносы. Логические связи между этапами и контроль назначений.")
+					FeatureRow(title: "Шаблоны", text: "Обследования всех видов и протоколы УЗИ с измерениями. Настройка под клинику.")
+					FeatureRow(title: "Приёмы", text: "Электронная медкарта, дневники приёмов, выписки и заключения.")
+					FeatureRow(title: "Интеграция с ЕГИСЗ", text: "СЭМД создаются автоматически и отправляются в ЕГИСЗ. Формирование ИЭМК.")
+					FeatureRow(title: "Статистика", text: "Эффективность протоколов, статистика по врачам и ежегодный отчёт РАРЧ.")
+				}
+				.class("wide rows")
 			}
+			.class("split")
 
-			// Templates
-			Section {
-				Text("Электронные шаблоны")
-					.font(.title3)
-					.margin(.bottom, 20)
-
-				Text("• Шаблоны обследований всех видов")
-					.margin(.bottom, 10)
-
-				Text("• Протоколы УЗИ с измерениями")
-					.margin(.bottom, 10)
-
-				Text("• Гибкая настройка шаблонов под клинику")
-					.margin(.bottom, 10)
-
-				Text("• Быстрое заполнение типовых документов")
-					.margin(.bottom, 30)
+			Tag("div") {
+				Tag("p") { "Документы по приказу Минздрава № 803н от 31.07.2020 формируются из данных цикла." }
+				Tag("a") { "Посмотреть на демо →" }
+					.class("arrow")
+					.attribute("href", "#contact")
 			}
-
-			// Appointments
-			Section {
-				Text("Ведение приемов")
-					.font(.title3)
-					.margin(.bottom, 20)
-
-				Text("• Электронная медицинская карта пациента")
-					.margin(.bottom, 10)
-
-				Text("• Автоматическая генерация дневников приемов")
-					.margin(.bottom, 10)
-
-				Text("• Создание выписок и заключений")
-					.margin(.bottom, 10)
-
-				Text("• История всех назначений и процедур")
-					.margin(.bottom, 30)
-			}
-
-			// EGISZ Integration
-			Section {
-				Text("Интеграция с ЕГИСЗ")
-					.font(.title3)
-					.margin(.bottom, 20)
-
-				Text("• Автоматическое создание СЭМДов")
-					.margin(.bottom, 10)
-
-				Text("• Отправка медицинских записей в ЕГИСЗ")
-					.margin(.bottom, 10)
-
-				Text("• Формирование ИЭМК")
-					.margin(.bottom, 10)
-
-				Text("• Соответствие всем требованиям законодательства")
-					.margin(.bottom, 30)
-			}
-
-			// Statistics
-			Section {
-				Text("Статистика и анализ")
-					.font(.title3)
-					.margin(.bottom, 20)
-
-				Text("• Автоматизированный сбор данных")
-					.margin(.bottom, 10)
-
-				Text("• Анализ эффективности протоколов")
-					.margin(.bottom, 10)
-
-				Text("• Автоматическая генерация ежегодного отчета РАРЧ")
-					.margin(.bottom, 10)
-
-				Text("• Персональная статистика по врачам")
-					.margin(.bottom, 10)
-
-				Text("• Сравнительный анализ результатов")
-					.margin(.bottom, 10)
-			}
+			.class("callout")
 		}
-		.padding(.vertical, 60)
-		.id("doctors")
+	}
 
-		// FOR ADMINISTRATORS SECTION
-		Section {
-			Text("🏥 Для администраторов")
-				.font(.title2)
-				.margin(.bottom, 50)
+	private var administrators: some HTML {
+		PageSection(id: "administrators", number: "03", title: "Администраторам", lead: "Регистратура, касса и документы работают на тех же данных, что и врачи.") {
+			Photo(path: "/images/5_reception.jpeg", description: "Администратор клиники ведёт расписание за стойкой регистратуры", ratio: "r3x1 banner")
 
-			// Reception
-			Section {
-				Text("Регистратура")
-					.font(.title3)
-					.margin(.bottom, 20)
-
-				Text("• Подробный календарь специалистов")
-					.margin(.bottom, 10)
-
-				Text("• Управление кабинетами и услугами")
-					.margin(.bottom, 10)
-
-				Text("• Гибкая настройка расписания")
-					.margin(.bottom, 10)
-
-				Text("• Интеграция с онлайн сервисами записи")
-					.margin(.bottom, 10)
-
-				Text("• Контроль загрузки специалистов")
-					.margin(.bottom, 30)
+			Tag("div") {
+				FeatureCard(title: "Регистратура", items: [
+					"Календарь специалистов и кабинетов",
+					"Гибкое расписание и услуги",
+					"Онлайн-запись из внешних сервисов",
+					"Контроль загрузки специалистов",
+				])
+				FeatureCard(title: "Касса", items: [
+					"Отчёты по оказанным услугам",
+					"Учёт потраченных материалов",
+					"Дебиторская задолженность",
+					"Счета, акты и онлайн-кассы",
+				])
+				FeatureCard(title: "Печатные формы", items: [
+					"Договоры и информированные согласия",
+					"Анкеты и опросники",
+					"Шаблоны под нужды клиники",
+					"Данные пациента подставляются сами",
+				])
 			}
-
-			// Cash System
-			Section {
-				Text("Кассовая система")
-					.font(.title3)
-					.margin(.bottom, 20)
-
-				Text("• Подробная отчетность по оказанным услугам")
-					.margin(.bottom, 10)
-
-				Text("• Учет потраченных материалов")
-					.margin(.bottom, 10)
-
-				Text("• Контроль дебиторской задолженности")
-					.margin(.bottom, 10)
-
-				Text("• Формирование счетов и актов")
-					.margin(.bottom, 10)
-
-				Text("• Интеграция с онлайн-кассами")
-					.margin(.bottom, 30)
-			}
-
-			// Document Generation
-			Section {
-				Text("Печатные формы")
-					.font(.title3)
-					.margin(.bottom, 20)
-
-				Text("• Быстрая генерация договоров")
-					.margin(.bottom, 10)
-
-				Text("• Информированные согласия")
-					.margin(.bottom, 10)
-
-				Text("• Анкеты и опросники")
-					.margin(.bottom, 10)
-
-				Text("• Гибкие шаблоны под нужды клиники")
-					.margin(.bottom, 10)
-
-				Text("• Автоматическое заполнение данных пациента")
-					.margin(.bottom, 10)
-			}
+			.class("grid cards-3")
 		}
-		.padding(.vertical, 60)
-		.id("administrators")
+	}
 
-		// FOR CLIENTS SECTION
-		Section {
-			Text("📱 Для клиентов")
-				.font(.title2)
-				.margin(.bottom, 50)
+	private var patients: some HTML {
+		Tag("section") {
+			Tag("div") {
+				Tag("div") {
+					SectionHeader(number: "04", title: "Пациентам", lead: "Мобильное приложение клиники. Пациент видит свой цикл и не звонит, чтобы узнать новости.")
+					Tag("div") {
+						FeatureRow(title: "Культивирование", text: "Снимки эмбрионов по дням, уведомления о важных этапах и комментарии эмбриолога.")
+						FeatureRow(title: "Запись на приём", text: "Свободное время специалистов, напоминания, отмена и перенос.")
+						FeatureRow(title: "Личный кабинет", text: "Календарь процедур, результаты анализов и документы для налогового вычета.")
+					}
+					.class("rows")
+				}
+				.class("wide")
 
-			Text("Мобильное приложение для комфортного взаимодействия с клиникой")
-				.font(.lead)
-				.margin(.bottom, 40)
-
-			Section {
-				Text("Мониторинг культивирования")
-					.font(.title3)
-					.margin(.bottom, 20)
-
-				Text("• Отслеживание развития своих эмбрионов в реальном времени")
-					.margin(.bottom, 10)
-
-				Text("• Фотографии эмбрионов на разных стадиях")
-					.margin(.bottom, 10)
-
-				Text("• Уведомления о важных этапах")
-					.margin(.bottom, 10)
-
-				Text("• Комментарии эмбриолога")
-					.margin(.bottom, 30)
+				PatientPhone()
 			}
-
-			Section {
-				Text("Запись на прием")
-					.font(.title3)
-					.margin(.bottom, 20)
-
-				Text("• Онлайн запись к специалистам")
-					.margin(.bottom, 10)
-
-				Text("• Просмотр доступного расписания")
-					.margin(.bottom, 10)
-
-				Text("• Напоминания о визитах")
-					.margin(.bottom, 10)
-
-				Text("• Отмена и перенос записей")
-					.margin(.bottom, 30)
-			}
-
-			Section {
-				Text("Личный кабинет")
-					.font(.title3)
-					.margin(.bottom, 20)
-
-				Text("• Проверка календаря процедур")
-					.margin(.bottom, 10)
-
-				Text("• Просмотр оказанных услуг")
-					.margin(.bottom, 10)
-
-				Text("• Запрос бухгалтерских документов для налогового вычета")
-					.margin(.bottom, 10)
-
-				Text("• История приемов и назначений")
-					.margin(.bottom, 10)
-
-				Text("• Результаты анализов и обследований")
-					.margin(.bottom, 10)
-			}
+			.class("wrap split")
 		}
-		.padding(.vertical, 60)
-		.id("clients")
+		.class("section surface")
+		.id("patients")
+	}
 
-		// Benefits Section
-		Section {
-			Text("Преимущества EmbryoDoc")
-				.font(.title2)
-				.margin(.bottom, 40)
-
-			Section {
-				Text("✓ Исключение ошибок человеческого фактора")
-					.font(.body)
-					.margin(.bottom, 15)
-
-				Text("✓ Повышение качества медицинских данных")
-					.font(.body)
-					.margin(.bottom, 15)
-
-				Text("✓ Автоматизация рутинных процессов")
-					.font(.body)
-					.margin(.bottom, 15)
-
-				Text("✓ Соответствие требованиям ЕГИСЗ и приказу № 803н")
-					.font(.body)
-					.margin(.bottom, 15)
-
-				Text("✓ Контроль на всех этапах лечения")
-					.font(.body)
-					.margin(.bottom, 15)
-
-				Text("✓ Удобство для пациентов")
-					.font(.body)
+	private var benefits: some HTML {
+		PageSection(id: "benefits", number: "05", title: "Почему EmbryoDoc", lead: "Система создана вместе с эмбриологами и врачами центров ВРТ.", style: "plain") {
+			Tag("div") {
+				Benefit(title: "Меньше ошибок", text: "Система проверяет данные при вводе и не даёт пропустить этап.")
+				Benefit(title: "Качество данных", text: "Один источник для лаборатории, врачей, кассы и отчётов.")
+				Benefit(title: "Без рутины", text: "Документы, дневники и статистика собираются автоматически.")
+				Benefit(title: "Соответствие закону", text: "Требования ЕГИСЗ и приказа № 803н выполняются из коробки.")
+				Benefit(title: "Контроль всего цикла", text: "Каждый этап лечения виден и связан с предыдущим.")
+				Benefit(title: "Удобно пациентам", text: "Приложение снимает лишние звонки и вопросы.")
 			}
+			.class("benefits")
 		}
-		.padding(.vertical, 60)
+	}
 
-		// CTA Section
-		Section {
-			Text("Готовы начать?")
-				.font(.title2)
-				.margin(.bottom, 20)
+	private var contact: some HTML {
+		Tag("section") {
+			Tag("div") {
+				Tag("div") {
+					Tag("span") { "06 · Контакты" }
+						.class("overline accent")
+					Tag("h2") { "Покажем EmbryoDoc на задачах вашей клиники" }
+					Tag("p") { "Оставьте контакты — договоримся о демонстрации в удобное время. Отвечаем в течение рабочего дня." }
+						.class("lead")
+					Tag("a") { Contact.email }
+						.attribute("href", "mailto:\(Contact.email)")
+				}
 
-			Text("Запросите демонстрацию возможностей EmbryoDoc")
-				.font(.lead)
-				.margin(.bottom, 30)
-
-			Link("Связаться с нами", target: "mailto:egor@ledkov.org")
-				.linkStyle(.button)
-				.role(.primary)
+				ContactForm()
+			}
+			.class("wrap contact")
 		}
-		.padding(.vertical, 80)
+		.class("section inverse")
 		.id("contact")
+		.data("theme", "dark")
 	}
 }
