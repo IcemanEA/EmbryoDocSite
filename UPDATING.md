@@ -27,6 +27,7 @@ Sources/ + Assets/ + Includes/  ──swift run──▶  docs/  ──git push�
 | Цвета, шрифты, отступы, скругления | `Assets/css/embryodoc.css`, блок токенов в начале файла |
 | Фото | `Assets/images/` |
 | Логотип | `Includes/embryodoc-logo.svg` |
+| Иконка во вкладке браузера и на экране iPhone | `Assets/favicon.svg`, `Assets/favicon.ico`, `Assets/apple-touch-icon.png` |
 | Домен | `Assets/CNAME` |
 
 ## Как поменять текст
