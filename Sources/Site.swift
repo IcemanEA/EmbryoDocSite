@@ -18,7 +18,7 @@ struct IgniteWebsite {
 
 struct EmbryoDocSite: Site {
 	var name = "EmbryoDoc App"
-	var titleSuffix = " – Приложение для эмбриологов и репродуктологов"
+	var titleSuffix = " - Приложение для эмбриологов и репродуктологов"
 	var url = URL(static: "https://embryodoc.app")
 	var language = Language.russian
 
